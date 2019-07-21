@@ -77,7 +77,7 @@ class Pet():
         walkChoice = int(input("selection: "))
 
         if walkChoice == 1:
-            print("You take " + self.petName + " a short walk.")
+            print("You take " + self.petName + " for a short walk.")
 
             self.health += 10
             self.health = minmax(self.health)
@@ -89,7 +89,7 @@ class Pet():
             self.hunger = minmax(self.hunger)
 
         elif walkChoice == 2:
-            print("You take " + self.petName + " a long walk.")
+            print("You take " + self.petName + " for a long walk.")
 
             self.health += 10
             self.health = minmax(self.health)
@@ -127,7 +127,7 @@ class Pet():
             self.hunger = minmax(self.hunger)
 
         elif playChoice == 2:
-            print("You take " + self.petName + " a lot.")
+            print("You play with " + self.petName + " a lot.")
 
             self.health += 10
             self.health = minmax(self.health)
@@ -147,11 +147,12 @@ class Pet():
 
     def sleep(self, petName):
         """Pet sleeps"""
-        print("How long is " + petName + " sleeping for?")
+        print("How long is " + self.petName + " sleeping for?")
         print("1. a short nap\n2. all night")
         sleepChoice = int(input("selection: "))
 
         # this loop isn't working, goes straight to invalid option
+        # thought it might be the leading self.petName but it doesn't seem to
         if sleepChoice == 1:
             print(self.petName + " takes a short nap.")
 
