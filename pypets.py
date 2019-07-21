@@ -1,293 +1,313 @@
 #!/usr/bin/env python3
 
 # Set available pet types and actions
-petTypes = ('dog', 'cat', 'rabbit', 'lizard', 'bird', 'fish')
+pet_types = ('dog', 'cat', 'rabbit', 'lizard', 'bird', 'fish')
 petActions = ('feed', 'walk', 'play', 'sleep')
 
 
-def minmax(statvalue):
-    if statvalue <= 0:
-        statvalue = 0
-        return statvalue
-    elif statvalue >= 100:
-        statvalue = 100
-        return statvalue
+# Ensure that stat values are not less that 0 or more than 100
+def min_max(stat_value):
+    if stat_value <= 0:
+        stat_value = 0
+        return stat_value
+    elif stat_value >= 100:
+        stat_value = 100
+        return stat_value
     else:
-        return statvalue
+        return stat_value
 
-def printstats(petName, health, happy, rest, hunger):
-    print("Now " + petName + "'s health is at " + str(health) + "%")
-    print("Now " + petName + " is " + str(happy) + "% happy")
-    print("Now " + petName + " is " + str(hunger) + "% rested")
-    print("Now " + petName + " is " + str(hunger) + "% full")
 
-## Pet class
-class Pet():
+# Display pet stats
+def print_stats(pet_name, health, happy, rest, hunger):
+    print("Now " + pet_name + "'s health is at " + str(health) + "%")
+    print("Now " + pet_name + " is " + str(happy) + "% happy")
+    print("Now " + pet_name + " is " + str(rest) + "% rested")
+    print("Now " + pet_name + " is " + str(hunger) + "% full")
+
+
+# Pet class
+class Pet:
     """Pet class"""
-
-    def __init__(self, petName, petOwner):
-        self.petName = petName
-        self.petOwner = petOwner
+    def __init__(self, pet_name, pet_owner):
+        self.pet_name = pet_name
+        self.pet_owner = pet_owner
         self.health = 100
         self.happy = 100
         self.rest = 100
         self.hunger = 50
 
-    def feed(self, petName):
+    def feed(self, pet_name):
         """Feed pet"""
-        print("What would you like to feed " + petName + "?")
+        print("What would you like to feed " + pet_name + "?")
         print("1. a treat\n2. a meal")
-        feedChoice = int(input("selection: "))
+        feed_choice = int(input("selection: "))
 
-        if feedChoice == 1:
-            print("You give " + self.petName + " a treat.")
+        if feed_choice == 1:
+            print("You give " + self.pet_name + " a treat.")
 
             self.health += 10
-            self.health = minmax(self.health)
+            self.health = min_max(self.health)
             self.happy += 20
-            self.happy = minmax(self.happy)
+            self.happy = min_max(self.happy)
             self.rest -= 10
-            self.rest = minmax(self.rest)
+            self.rest = min_max(self.rest)
             self.hunger += 10
-            self.hunger = minmax(self.hunger)
+            self.hunger = min_max(self.hunger)
 
-        elif feedChoice == 2:
-            print("You give " + self.petName + " a meal.")
+        elif feed_choice == 2:
+            print("You give " + self.pet_name + " a meal.")
 
             self.health += 20
-            self.health = minmax(self.health)
+            self.health = min_max(self.health)
             self.happy += 10
-            self.happy = minmax(self.happy)
+            self.happy = min_max(self.happy)
             self.rest -= 10
-            self.rest = minmax(self.rest)
+            self.rest = min_max(self.rest)
             self.hunger += 40
-            self.hunger = minmax(self.hunger)
+            self.hunger = min_max(self.hunger)
 
         else:
             print("That isn't a valid option.")
 
-        printstats(self.petName, self.health, self.happy, self.rest, self.hunger)
+        print_stats(self.pet_name, self.health, self.happy, self.rest, self.hunger)
 
-        ## end of feed
+        # End of feed
 
-    def walk(self, petName):
+    def walk(self, pet_name):
         """Walk pet"""
-        print("How long of a walk do you want to take " + petName + " on?")
+        print("How long of a walk do you want to take " + pet_name + " on?")
         print("1. short\n2. long")
-        walkChoice = int(input("selection: "))
+        walk_choice = int(input("selection: "))
 
-        if walkChoice == 1:
-            print("You take " + self.petName + " for a short walk.")
+        if walk_choice == 1:
+            print("You take " + self.pet_name + " for a short walk.")
 
             self.health += 10
-            self.health = minmax(self.health)
+            self.health = min_max(self.health)
             self.happy += 10
-            self.happy = minmax(self.happy)
+            self.happy = min_max(self.happy)
             self.rest -= 10
-            self.rest = minmax(self.rest)
+            self.rest = min_max(self.rest)
             self.hunger += 10
-            self.hunger = minmax(self.hunger)
+            self.hunger = min_max(self.hunger)
 
-        elif walkChoice == 2:
-            print("You take " + self.petName + " for a long walk.")
+        elif walk_choice == 2:
+            print("You take " + self.pet_name + " for a long walk.")
 
             self.health += 10
-            self.health = minmax(self.health)
+            self.health = min_max(self.health)
             self.happy += 20
-            self.happy = minmax(self.happy)
+            self.happy = min_max(self.happy)
             self.rest -= 20
-            self.rest = minmax(self.rest)
+            self.rest = min_max(self.rest)
             self.hunger -= 40
-            self.hunger = minmax(self.hunger)
+            self.hunger = min_max(self.hunger)
 
         else:
             print("That isn't a valid option.")
 
-        printstats(self.petName, self.health, self.happy, self.rest, self.hunger)
+        print_stats(self.pet_name, self.health, self.happy, self.rest, self.hunger)
 
-        ## end of walk
+        # End of walk
 
-    def play(self, petName):
+    def play(self, pet_name):
         """Pet plays"""
-        print("How much you want to play with " + petName + "?")
+        print("How much you want to play with " + pet_name + "?")
         # this is horrible but it's all I could think of for options
         print("1. a little\n2. a lot")
-        playChoice = int(input("selection: "))
+        play_choice = int(input("selection: "))
 
-        if playChoice == 1:
-            print("You play with " + self.petName + " a little.")
+        if play_choice == 1:
+            print("You play with " + self.pet_name + " a little.")
 
             self.health += 10
-            self.health = minmax(self.health)
+            self.health = min_max(self.health)
             self.happy += 10
-            self.happy = minmax(self.happy)
+            self.happy = min_max(self.happy)
             self.rest -= 10
-            self.rest = minmax(self.rest)
+            self.rest = min_max(self.rest)
             self.hunger -= 10
-            self.hunger = minmax(self.hunger)
+            self.hunger = min_max(self.hunger)
 
-        elif playChoice == 2:
-            print("You play with " + self.petName + " a lot.")
+        elif play_choice == 2:
+            print("You play with " + self.pet_name + " a lot.")
 
             self.health += 10
-            self.health = minmax(self.health)
+            self.health = min_max(self.health)
             self.happy += 40
-            self.happy = minmax(self.happy)
+            self.happy = min_max(self.happy)
             self.rest -= 40
-            self.rest = minmax(self.rest)
+            self.rest = min_max(self.rest)
             self.hunger -= 40
-            self.hunger = minmax(self.hunger)
+            self.hunger = min_max(self.hunger)
 
         else:
             print("That isn't a valid option.")
 
-        printstats(self.petName, self.health, self.happy, self.rest, self.hunger)
+        print_stats(self.pet_name, self.health, self.happy, self.rest, self.hunger)
 
-        ## end of play
+        # End of play
 
-    def sleep(self, petName):
+    def sleep(self, pet_name):
         """Pet sleeps"""
-        print("How long is " + self.petName + " sleeping for?")
+        print("How long is " + pet_name + " sleeping for?")
         print("1. a short nap\n2. all night")
-        sleepChoice = int(input("selection: "))
-
+        sleep_choice = int(input("selection: "))
         # this loop isn't working, goes straight to invalid option
-        # thought it might be the leading self.petName but it doesn't seem to
-        if sleepChoice == 1:
-            print(self.petName + " takes a short nap.")
+        # thought it might be the leading self.pet_name but it doesn't seem to
+        if sleep_choice == 1:
+            print("test " + self.pet_name + " takes a short nap.")
 
             self.health += 10
-            self.health = minmax(self.health)
+            self.health = min_max(self.health)
             self.happy += 20
-            self.happy = minmax(self.happy)
+            self.happy = min_max(self.happy)
             self.rest += 20
-            self.rest = minmax(self.rest)
+            self.rest = min_max(self.rest)
             self.hunger -= 10
-            self.hunger = minmax(self.hunger)
+            self.hunger = min_max(self.hunger)
 
-        elif sleepChoice == 2:
-            print(self.petName + " goes too sleep for the night")
+        elif sleep_choice == 2:
+            print("test " + self.pet_name + " goes too sleep for the night")
 
             self.health += 40
-            self.health = minmax(self.health)
+            self.health = min_max(self.health)
             self.happy += 20
-            self.happy = minmax(self.happy)
+            self.happy = min_max(self.happy)
             self.rest += 40
-            self.rest = minmax(self.rest)
+            self.rest = min_max(self.rest)
             self.hunger -= 40
-            self.hunger = minmax(self.hunger)
+            self.hunger = min_max(self.hunger)
 
         else:
             print("That isn't a valid option.")
 
-        printstats(self.petName, self.health, self.happy, self.rest, self.hunger)
+        print_stats(self.pet_name, self.health, self.happy, self.rest, self.hunger)
 
-        ## end of sleep
+        # End of sleep
 
-## End of pet class
+# End of pet class
 
-## Species Classes
+
+# Species Classes
 class Dog(Pet):
     """Dog class"""
 
-    def __init__(self, petName, petOwner):
+    def __init__(self, pet_name, pet_owner):
         """Initialize attributes of the Pet class"""
-        super().__init__(petName, petOwner)
+        super().__init__(pet_name, pet_owner)
+
+    # End of dog class
 
 
 class Cat(Pet):
     """Cat class"""
 
-    def __init__(self, petName, petOwner):
+    def __init__(self, pet_name, pet_owner):
         """Initialize attributes of the Pet class"""
-        super().__init__(petName, petOwner)
+        super().__init__(pet_name, pet_owner)
+
+    # End of cat class
 
 
 class Rabbit(Pet):
     """Rabbit class"""
 
-    def __init__(self, petName, petOwner):
+    def __init__(self, pet_name, pet_owner):
         """Initialize attributes of the Pet class"""
-        super().__init__(petName, petOwner)
+        super().__init__(pet_name, pet_owner)
+
+    # End of rabbit class
 
 
 class Lizard(Pet):
     """Lizard class"""
 
-    def __init__(self, petName, petOwner):
+    def __init__(self, pet_name, pet_owner):
         """Initialize attributes of the Pet class"""
-        super().__init__(petName, petOwner)
+        super().__init__(pet_name, pet_owner)
+
+    # End of lizard class
 
 
 class Bird(Pet):
     """Bird class"""
 
-    def __init__(self, petName, petOwner):
+    def __init__(self, pet_name, pet_owner):
         """Initialize attributes of the Pet class"""
-        super().__init__(petName, petOwner)
+        super().__init__(pet_name, pet_owner)
+
+    # End of bird class
 
 
 class Fish(Pet):
     """Fish class"""
 
-    def __init__(self, petName, petOwner):
+    def __init__(self, pet_name, pet_owner):
         """Initialize attributes of the Pet class"""
-        super().__init__(petName, petOwner)
-##End of species classes
+        super().__init__(pet_name, pet_owner)
+
+    # End of fish class
+
+# End of species classes
+
 
 def main():
-    ## Get player petName
-    petOwner = input("Welcome to pypets! \nWhat is your name? ").title()
+
+    # Get player name and pet type
+    pet_owner = input("Welcome to pypets! \nWhat is your name? ").title()
     print("what kind of pet would you like?")
-    typeMenuNumber = 1
-    for types in petTypes:
-        print(str(typeMenuNumber) + " " + types)
-        typeMenuNumber += 1
+    type_menu_number = 1
+    for types in pet_types:
+        print(str(type_menu_number) + " " + types)
+        type_menu_number += 1
 
-    typeChoice = int(input("selection: "))
-    petType = petTypes[typeChoice - 1]
+    type_choice = int(input("selection: "))
+    pet_type = pet_types[type_choice - 1]
 
-    petName = input("What would you like to name your " + petType + "? ")
+    # Get pet name
+    pet_name = input("What would you like to name your " + pet_type + "? ")
 
-    if typeChoice == 1:
-        currentPet = Dog(petName, petOwner)
-    elif typeChoice == 2:
-        currentPet = Cat(petName, petOwner)
-    elif typeChoice == 3:
-        currentPet = Rabbit(petName, petOwner)
-    elif typeChoice == 4:
-        currentPet = Lizard(petName, petOwner)
-    elif typeChoice == 5:
-        currentPet = Bird(petName, petOwner)
-    elif typeChoice == 6:
-        currentPet = Fish(petName, petOwner)
+    if type_choice == 1:
+        current_pet = Dog(pet_name, pet_owner)
+    elif type_choice == 2:
+        current_pet = Cat(pet_name, pet_owner)
+    elif type_choice == 3:
+        current_pet = Rabbit(pet_name, pet_owner)
+    elif type_choice == 4:
+        current_pet = Lizard(pet_name, pet_owner)
+    elif type_choice == 5:
+        current_pet = Bird(pet_name, pet_owner)
+    elif type_choice == 6:
+        current_pet = Fish(pet_name, pet_owner)
     else:
         print("Sorry, that isn't a valid option.")
         exit()
 
-    print("\n\nOk, " + currentPet.petOwner + " your new " + petType + "'s petName is " + currentPet.petName + "!")
+    print("\n\nOk, " + current_pet.pet_owner + " your new " + pet_type + "'s pet_name is " + current_pet.pet_name + "!")
 
     # Get and perform desired action
 
-    print("\n\nWhat would you like to do with " + currentPet.petName + "?")
+    print("\n\nWhat would you like to do with " + current_pet.pet_name + "?")
 
-    actionMenuNumber = 1
+    action_menu_number = 1
     for action in petActions:
-        print(str(actionMenuNumber) + " " + action)
-        actionMenuNumber += 1
+        print(str(action_menu_number) + " " + action)
+        action_menu_number += 1
 
-    actionChoice = int(input("selection: "))
-    actionType = petActions[actionChoice - 1]
+    action_choice = int(input("selection: "))
+    action_type = petActions[action_choice - 1]
 
-    if actionType == "feed":
-        currentPet.feed(currentPet.petName)
-    elif actionType == "walk":
-        currentPet.walk(currentPet.petName)
-    elif actionType == "play":
-        currentPet.play(currentPet.petName)
+    if action_type == "feed":
+        current_pet.feed(current_pet.pet_name)
+    elif action_type == "walk":
+        current_pet.walk(current_pet.pet_name)
+    elif action_type == "play":
+        current_pet.play(current_pet.pet_name)
     else:
         print("Sorry, that isn't a valid option.")
         exit()
 
+
 if __name__ == '__main__':
-  main()
+    main()
